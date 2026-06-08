@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Manajemen Rumah Sakit</title>
+    <!-- Tailwind CSS untuk Desain Premium -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome untuk Icon Klinis -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clinical: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        accent: {
+                            indigo: '#4f46e5',
+                            sky: '#0284c7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen font-sans flex flex-col justify-between">
+
+    <!-- CONTAINER NOTIFIKASI POPUP (TOAST) -->
+    <div id="notification-container" class="fixed bottom-5 right-5 z-50 space-y-3 max-w-sm"></div>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🏥</span>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800">Ulyvia</h1>
+                    <p class="text-xs text-clinical-600 font-semibold tracking-wider">Rumah Sakit</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+                <span class="hidden md:inline text-slate-500">Mata Kuliah: <strong>Algoritma & Struktur Data</strong></span>
+                <span class="bg-clinical-100 text-clinical-800 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-clinical-600 animate-pulse"></span> Mode Offline Aktif
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- KONTEN DASHBOARD UTAMA -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-grow w-full">
+
+        <!-- SEKSI 1: TABEL BIG O COMPLEXITY ANALYSIS -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-xl">📊</span>
+                <h2 class="text-lg font-bold text-slate-800">1. Analisis Kompleksitas Sistem (Materi: Big O Notation)</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="p-3 text-sm font-semibold text-slate-600">Modul Operasional</th>
+                            <th class="p-3 text-sm font-semibold text-slate-600">Struktur Data / Algoritma</th>
+                            <th class="p-3 text-sm font-semibold text-slate-600">Time Complexity (Worst Case)</th>
+                            <th class="p-3 text-sm font-semibold text-slate-600">Keterangan Implementasi Sistem</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm">
+                        <tr>
+                            <td class="p-3 font-medium">Pendaftaran Antrean Klinik</td>
+                            <td class="p-3 text-slate-600">Queue (FIFO Array-based)</td>
+                            <td class="p-3"><code class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-mono font-bold">O(1)</code></td>
+                            <td class="p-3 text-slate-500">Menambahkan data pasien baru ke ujung belakang barisan (Enqueue / Push).</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-medium">Gudang Resep Apotek</td>
+                            <td class="p-3 text-slate-600">Stack (LIFO Array-based)</td>
+                            <td class="p-3"><code class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-mono font-bold">O(1)</code></td>
+                            <td class="p-3 text-slate-500">Menaruh (Push) dan membatalkan (Pop) resep dari tumpukan paling atas.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-medium">Penyimpanan Rekam Medis</td>
+                            <td class="p-3 text-slate-600">Double Linked List</td>
+                            <td class="p-3"><code class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-mono font-bold">O(n)</code></td>
+                            <td class="p-3 text-slate-500">Navigasi rekam medis dua arah lewat pointer PREV & NEXT dengan alokasi simulasi memori.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-medium">Prioritas Ranjang UGD</td>
+                            <td class="p-3 text-slate-600">Bubble Sort Algorithm</td>
+                            <td class="p-3"><code class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-mono font-bold">O(n²)</code></td>
+                            <td class="p-3 text-slate-500">Mengurutkan keparahan pasien UGD secara sekuensial dengan membandingkan node bersebelahan.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-medium">Kalkulator Jaminan JKN</td>
+                            <td class="p-3 text-slate-600">Fungsi Rekursif</td>
+                            <td class="p-3"><code class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-mono font-bold">O(n)</code></td>
+                            <td class="p-3 text-slate-500">Mengevaluasi diskon biaya bertingkat dengan memanggil dirinya sendiri di memori stack.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEKSI 2: FLOWCHART & PSEUDOCODE -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-xl">📜</span>
+                <h2 class="text-lg font-bold text-slate-800">2. Perancangan Logika Program (Materi: Flowchart & Pseudocode)</h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-500 mb-2">PSEUDOCODE LOGIKA BUBBLE SORT PADA TRIASE UGD:</h3>
+                    <pre class="bg-slate-900 text-sky-400 p-4 rounded-xl text-xs font-mono overflow-x-auto leading-relaxed">
+PROCEDURE bubble_sort_triage(ARRAY_PATIENTS pasien)
+    DECLARE n = panjang_array(pasien)
+    FOR i = 0 TO n - 1 DO
+        FOR j = 0 TO n - i - 2 DO
+            // Nilai prioritas kecil berarti kondisi makin darurat (kritis)
+            IF pasien[j].priority > pasien[j+1].priority THEN
+                // Swap/Tukar posisi elemen bersebelahan
+                DECLARE temp = pasien[j]
+                pasien[j] = pasien[j+1]
+                pasien[j+1] = temp
+            ENDIF
+        ENDFOR
+    ENDFOR
+    PRINT "Pasien terurut berdasarkan tingkat urgensi"
+ENDPROCEDURE</pre>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-500 mb-2">FLOWCHART ANTRIAN KLINIK (ENQUEUE LOGIC):</h3>
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex flex-col items-center justify-center min-h-[220px]">
+                        <div class="flex flex-col items-center gap-2 text-xs font-mono font-bold text-emerald-800">
+                            <span class="bg-emerald-200 px-3 py-1 rounded-full">🟢 MULAI [Start]</span>
+                            <span class="text-slate-400">↓</span>
+                            <span class="bg-white border border-emerald-300 px-3 py-1 rounded">Input: Nama Pasien & Poliklinik</span>
+                            <span class="text-slate-400">↓</span>
+                            <span class="bg-white border border-emerald-300 px-3 py-1 rounded">Buat ID Unik (Random)</span>
+                            <span class="text-slate-400">↓</span>
+                            <span class="bg-white border border-emerald-300 px-3 py-1 rounded">Array.push(pasien_baru)</span>
+                            <span class="text-slate-400">↓</span>
+                            <span class="bg-emerald-200 px-3 py-1 rounded-full">🔴 SELESAI [End]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKSI 3: GRID 2 KOLOM (QUEUE & STACK MODUL) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- MODUL QUEUE & ARRAY -->
+            <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">👥</span>
+                            <h2 class="text-lg font-bold text-slate-800">3. Antrean Poliklinik (Materi: Queue & Array)</h2>
+                        </div>
+                        <span class="bg-clinical-50 text-clinical-700 text-xs font-semibold px-2 py-1 rounded-full">FIFO (First-In, First-Out)</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Mendaftar antrean klinis menggunakan struktur data array dinamis. Pasien terdepan (FRONT) dipanggil terlebih dahulu.</p>
+                    <hr class="border-slate-100 mb-4">
+                    
+                    <div class="space-y-4">
+                        <div class="form-group flex flex-col">
+                            <label class="text-xs font-bold text-slate-600 mb-1">Nama Pasien:</label>
+                            <input id="queue-name" type="text" placeholder="Contoh: Ahmad Wijaya" class="p-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-clinical-600 bg-slate-50">
+                        </div>
+                        <div class="form-group flex flex-col">
+                            <label class="text-xs font-bold text-slate-600 mb-1">Poliklinik Tujuan (Master Array):</label>
+                            <select id="queue-dept" class="p-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-clinical-600 bg-slate-50">
+                                <option value="Umum">Poli Umum</option>
+                                <option value="Gigi">Poli Gigi</option>
+                                <option value="Anak">Poli Anak</option>
+                                <option value="Jantung">Poli Jantung</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="enqueueAction()" class="bg-clinical-600 hover:bg-clinical-700 text-white text-sm font-bold py-2.5 px-4 rounded-lg transition-all duration-150 shadow-sm flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-user-plus"></i> Enqueue
+                        </button>
+                        <button onclick="dequeueAction()" class="bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold py-2.5 px-4 rounded-lg transition-all duration-150 shadow-sm flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Dequeue
+                        </button>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-500 mb-2">Visualisasi Jalur Antrean Pasien:</h3>
+                        <div id="queue-list" class="flex gap-3 overflow-x-auto py-2 min-h-[90px] border border-dashed border-slate-200 rounded-xl px-3 bg-slate-50/50 items-center">
+                            <!-- JS Rendered -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODUL STACK -->
+            <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">💊</span>
+                            <h2 class="text-lg font-bold text-slate-800">4. Racikan Resep Apotek (Materi: Stack Push & Pop)</h2>
+                        </div>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2 py-1 rounded-full">LIFO (Last-In, First-Out)</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Nota resep obat ditumpuk berjenjang secara vertikal. Pembatalan obat hanya bisa dilakukan pada tumpukan teratas (TOP).</p>
+                    <hr class="border-slate-100 mb-4">
+
+                    <div class="space-y-4">
+                        <div class="form-group flex flex-col">
+                            <label class="text-xs font-bold text-slate-600 mb-1">Nama Sediaan Obat:</label>
+                            <input id="stack-name" type="text" placeholder="Contoh: Paracetamol 500mg" class="p-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-slate-50">
+                        </div>
+                        <div class="form-group flex flex-col">
+                            <label class="text-xs font-bold text-slate-600 mb-1">Jumlah Butir (Pills Qty):</label>
+                            <input id="stack-qty" type="number" placeholder="Contoh: 15" class="p-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-slate-50">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="pushAction()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2.5 px-4 rounded-lg transition-all duration-150 shadow-sm flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-arrow-down-wide-short"></i> Push Stack
+                        </button>
+                        <button onclick="popAction()" class="bg-red-600 hover:bg-red-700 text-white text-sm font-bold py-2.5 px-4 rounded-lg transition-all duration-150 shadow-sm flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-trash-can"></i> Pop Stack
+                        </button>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-500 mb-2">Visualisasi Tumpukan Obat:</h3>
+                        <div id="stack-list" class="flex flex-col-reverse gap-2 min-h-[120px] border border-dashed border-slate-200 rounded-xl p-3 bg-slate-50/50 justify-end">
+                            <!-- JS Rendered -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- SEKSI 4: DOUBLE LINKED LIST -->
+        <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">📂</span>
+                    <h2 class="text-lg font-bold text-slate-800">5. Penelusur Rekam Medis (Materi: Double Linked List)</h2>
+                </div>
+                <span class="bg-sky-50 text-sky-700 text-xs font-semibold px-3 py-1 rounded-full border border-sky-100 flex items-center gap-1">
+                    <i class="fa-solid fa-folder-open"></i> Sistem Penyimpanan Node Berantai Dua Arah
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mb-6">Setiap rekam medis tersambung dua arah menggunakan penunjuk (PREV dan NEXT pointer address) secara dinamis di memori.</p>
+            
+            <div id="dll-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- JS Rendered -->
+            </div>
+        </section>
+
+        <!-- SEKSI 5: BUBBLE SORT & RECURSIVE CALCULATOR -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- BUBBLE SORT UGD VISUALIZER -->
+            <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">🚨</span>
+                            <h2 class="text-lg font-bold text-slate-800">6. Prioritas Ranjang UGD (Materi: Bubble Sort)</h2>
+                        </div>
+                        <span class="bg-amber-50 text-amber-700 text-xs font-semibold px-2 py-1 rounded-full">Level Kritis (1-5)</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Data pasien UGD diacak. Klik tombol untuk melakukan sorting sekuensial agar pasien paling kritis (Level 1) bergeser ke barisan depan.</p>
+                    <hr class="border-slate-100 mb-4">
+
+                    <div class="flex gap-4 mb-4">
+                        <button onclick="randomizeUgd()" class="bg-slate-600 hover:bg-slate-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all duration-150 shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-shuffle"></i> Acak Pasien UGD
+                        </button>
+                        <button onclick="runBubbleSort()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all duration-150 shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-bolt"></i> Urutkan (Bubble Sort)
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600">
+                                    <th class="p-2">Nama Pasien</th>
+                                    <th class="p-2">Keluhan / Kondisi</th>
+                                    <th class="p-2 text-center">Tingkat Urgensi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ugd-table-body" class="divide-y divide-slate-100 text-xs">
+                                <!-- JS Rendered -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RECURSIVE CALCULATOR -->
+            <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">🧮</span>
+                            <h2 class="text-lg font-bold text-slate-800">7. Kalkulator Subsidi JKN (Materi: Fungsi Rekursif)</h2>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs font-semibold px-2 py-1 rounded-full">Call Stack Memori</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Menghitung akumulasi pemotongan subsidi asuransi kesehatan berjenjang (Diskon 10% per lapisan asuransi) secara rekursif.</p>
+                    <hr class="border-slate-100 mb-4">
+
+                    <div class="space-y-4">
+                        <div class="form-group flex flex-col">
+                            <label class="text-xs font-bold text-slate-600 mb-1">Biaya Awal Tagihan (Rupiah):</label>
+                            <input id="recursive-cost" type="number" value="5000000" class="p-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-clinical-600 bg-slate-50">
+                        </div>
+                        <div class="form-group flex flex-col">
+                            <label class="text-xs font-bold text-slate-600 mb-1">Jumlah Lapisan Subsidi (Layer Rekursif):</label>
+                            <input id="recursive-layers" type="number" value="3" max="10" min="1" class="p-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-clinical-600 bg-slate-50">
+                        </div>
+                        <button onclick="calculateRecursion()" class="bg-clinical-600 hover:bg-clinical-700 text-white text-sm font-bold py-2.5 px-4 rounded-lg transition-all duration-150 w-full shadow-sm">
+                            Hitung Via Fungsi Rekursif
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div id="recursion-result-card" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-500">Hasil Akhir Tagihan:</span>
+                            <span id="final-cost-val" class="text-lg font-extrabold text-clinical-600">Rp 0</span>
+                        </div>
+                        <hr class="border-slate-200 my-2">
+                        <h4 class="text-xs font-bold text-slate-500 mb-1">Jejak Alur Tumpukan Call Stack Rekursif:</h4>
+                        <ul id="recursion-logs" class="text-[10px] font-mono text-slate-600 space-y-1 list-disc list-inside">
+                            <!-- JS Rendered -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-xs w-full">
+        <p class="font-semibold text-slate-200">🏥 Proyek Tugas Akhir Semester 2</p>
+        <p class="mt-1">Membungkus 8 Materi Algoritma & Struktur Data Secara Terintegrasi</p>
+    </footer>
+
+    <!-- ==============================================================================
+         LOGIKA INTERAKTIF JAVASCRIPT
+         ============================================================================== -->
+    <script>
+        // --- HELPER UNTUK POPUP NOTIFIKASI ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('notification-container');
+            const alertDiv = document.createElement('div');
+            
+            let bgClass = 'bg-emerald-50 border-emerald-200 text-emerald-800';
+            let icon = 'fa-circle-check';
+            if (type === 'danger') {
+                bgClass = 'bg-rose-50 border-rose-200 text-rose-800';
+                icon = 'fa-circle-xmark';
+            } else if (type === 'info') {
+                bgClass = 'bg-sky-50 border-sky-200 text-sky-800';
+                icon = 'fa-circle-info';
+            } else if (type === 'warning') {
+                bgClass = 'bg-amber-50 border-amber-200 text-amber-800';
+                icon = 'fa-triangle-exclamation';
+            }
+
+            alertDiv.className = `flex items-center gap-3 p-4 border rounded-xl shadow-lg transition-all duration-300 transform translate-y-2 opacity-0 ${bgClass}`;
+            alertDiv.innerHTML = `
+                <i class="fa-solid ${icon} text-lg"></i>
+                <div class="text-xs font-semibold">${message}</div>
+            `;
+            
+            container.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                alertDiv.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 3000);
+        }
+
+        // ==============================================================================
+        // MATERI 3: IMPLEMENTASI QUEUE & MASTER ARRAY
+        // ==============================================================================
+        let queuePatients = [
+            { id: "P-101", name: "Rizky Ramadhan", dept: "Umum" },
+            { id: "P-102", name: "Siti Rahma", dept: "Gigi" }
+        ];
+
+        function renderQueue() {
+            const listContainer = document.getElementById('queue-list');
+            listContainer.innerHTML = '';
+
+            if (queuePatients.length === 0) {
+                listContainer.innerHTML = `<span class="text-xs text-slate-400 italic mx-auto">Tidak ada antrean hari ini.</span>`;
+                return;
+            }
+
+            queuePatients.forEach((patient, idx) => {
+                const isFront = idx === 0;
+                const card = document.createElement('div');
+                card.className = `queue-card ${isFront ? 'front-node border-clinical-600 bg-clinical-50' : 'bg-white border-slate-200'} transition-all duration-300`;
+                card.innerHTML = `
+                    <span class="text-[9px] font-extrabold ${isFront ? 'text-clinical-700' : 'text-slate-400'} block uppercase tracking-wider">
+                        ${isFront ? '⭐ FRONT (Utama)' : `Antrean ke-${idx + 1}`}
+                    </span>
+                    <h4 class="text-xs font-bold text-slate-800 mt-1">${patient.name}</h4>
+                    <p class="text-[10px] text-slate-500">${patient.id} | Poli ${patient.dept}</p>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function enqueueAction() {
+            const nameInput = document.getElementById('queue-name');
+            const deptInput = document.getElementById('queue-dept');
+
+            const name = nameInput.value.trim();
+            const dept = deptInput.value;
+
+            if (!name) {
+                showToast("Mohon masukkan nama pasien terlebih dahulu!", "warning");
+                return;
+            }
+
+            const newId = `P-${Math.floor(100 + Math.random() * 900)}`;
+            queuePatients.push({ id: newId, name: name, dept: dept });
+            
+            nameInput.value = '';
+            renderQueue();
+            showToast(`Pasien ${name} berhasil masuk antrean! (Enqueue)`, "success");
+        }
+
+        function dequeueAction() {
+            if (queuePatients.length === 0) {
+                showToast("Antrean poliklinik saat ini kosong!", "danger");
+                return;
+            }
+            const served = queuePatients.shift(); // FIFO
+            renderQueue();
+            showToast(`🔊 Panggilan: Pasien ${served.name} silakan masuk ke Poli ${served.dept}! (Dequeue)`, "info");
+        }
+
+        // ==============================================================================
+        // MATERI 4: IMPLEMENTASI STACK (PUSH & POP)
+        // ==============================================================================
+        let prescriptionStack = [
+            { name: "Paracetamol 500mg", qty: 10 },
+            { name: "Amoxicillin 500mg", qty: 15 }
+        ];
+
+        function renderStack() {
+            const stackContainer = document.getElementById('stack-list');
+            stackContainer.innerHTML = '';
+
+            if (prescriptionStack.length === 0) {
+                stackContainer.innerHTML = `<span class="text-xs text-slate-400 italic my-auto text-center">Tumpukan obat kosong.</span>`;
+                return;
+            }
+
+            prescriptionStack.forEach((item, idx) => {
+                const isTop = idx === prescriptionStack.length - 1;
+                const card = document.createElement('div');
+                card.className = `stack-card ${isTop ? 'top-node border-accent-indigo bg-indigo-50/50' : 'bg-white border-slate-200'} transition-all duration-300`;
+                card.innerHTML = `
+                    <span class="text-xs">💊 <strong>${item.name}</strong> (${item.qty} pcs)</span>
+                    <span class="text-[9px] font-bold ${isTop ? 'text-accent-indigo' : 'text-slate-400'}">
+                        ${isTop ? '🔝 TOP OF STACK' : 'Frame Memori'}
+                    </span>
+                `;
+                stackContainer.appendChild(card);
+            });
+        }
+
+        function pushAction() {
+            const nameInput = document.getElementById('stack-name');
+            const qtyInput = document.getElementById('stack-qty');
+
+            const name = nameInput.value.trim();
+            const qty = parseInt(qtyInput.value);
+
+            if (!name || isNaN(qty) || qty <= 0) {
+                showToast("Lengkapi nama obat dan jumlah dengan angka valid!", "warning");
+                return;
+            }
+
+            prescriptionStack.push({ name: name, qty: qty });
+            nameInput.value = '';
+            qtyInput.value = '';
+            renderStack();
+            showToast(`Resep ${name} ditambahkan ke tumpukan atas! (Push)`, "success");
+        }
+
+        function popAction() {
+            if (prescriptionStack.length === 0) {
+                showToast("Tumpukan resep kosong! (Stack Underflow)", "danger");
+                return;
+            }
+            const removed = prescriptionStack.pop(); // LIFO
+            renderStack();
+            showToast(`🗑️ Pembatalan: Nota obat ${removed.name} dikeluarkan dari tumpukan! (Pop)`, "danger");
+        }
+
+        // ==============================================================================
+        // MATERI 5: IMPLEMENTASI DOUBLE LINKED LIST
+        // ==============================================================================
+        const medicalRecords = [
+            { addr: "0x4A12", id: "MR-209", name: "Aulia Rasyid", diag: "Demam Berdarah", prev: "NULL", next: "0x5B3F" },
+            { addr: "0x5B3F", id: "MR-301", name: "Guntur Baskoro", diag: "Gastritis Kronis", prev: "0x4A12", next: "0x6C7A" },
+            { addr: "0x6C7A", id: "MR-412", name: "Hendra Wijaya", diag: "Cedera Ligamen Lutut", prev: "0x5B3F", next: "NULL" }
+        ];
+
+        function renderDll() {
+            const container = document.getElementById('dll-container');
+            container.innerHTML = '';
+
+            medicalRecords.forEach(node => {
+                const card = document.createElement('div');
+                card.className = "bg-sky-50 border-2 border-sky-600 rounded-2xl p-5 shadow-sm space-y-4";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-sky-700 font-mono">Alamat Node: ${node.addr}</span>
+                        <span class="bg-sky-100 text-sky-800 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full">Record</span>
+                    </div>
+                    <hr class="border-sky-200">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800">${node.id} - ${node.name}</h4>
+                        <p class="text-xs text-slate-600 mt-1">Diagnosis Asli: <em class="text-slate-800 font-medium">${node.diag}</em></p>
+                    </div>
+                    <hr class="border-sky-200">
+                    <div class="space-y-1 text-[10px] font-mono">
+                        <div class="bg-sky-100 text-sky-800 p-1.5 rounded flex justify-between">
+                            <span>⬅️ POINTER PREV:</span> <strong>${node.prev}</strong>
+                        </div>
+                        <div class="bg-sky-100 text-sky-800 p-1.5 rounded flex justify-between">
+                            <span>➡️ POINTER NEXT:</span> <strong>${node.next}</strong>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ==============================================================================
+        // MATERI 6: IMPLEMENTASI BUBBLE SORT PADA TRIASE UGD
+        // ==============================================================================
+        let ugdPatients = [
+            { name: "Budi Santoso", illness: "Asma Berat", priority: 3 },
+            { name: "Guntur Satria", illness: "Gagal Jantung Akut", priority: 1 },
+            { name: "Aulia Safitri", illness: "Luka Gores", priority: 5 },
+            { name: "Hendra Wijaya", illness: "Patah Tulang", priority: 2 }
+        ];
+
+        function renderUgdTable() {
+            const tableBody = document.getElementById('ugd-table-body');
+            tableBody.innerHTML = '';
+
+            ugdPatients.forEach(p => {
+                const isCritical = p.priority === 1;
+                const row = document.createElement('tr');
+                row.className = isCritical ? 'bg-red-50 font-bold border-l-4 border-l-red-500' : 'hover:bg-slate-50';
+                row.innerHTML = `
+                    <td class="p-3">${p.name}</td>
+                    <td class="p-3 text-slate-600">${p.illness}</td>
+                    <td class="p-3 text-center">
+                        <span class="px-2 py-1 rounded text-[10px] font-extrabold tracking-wider ${isCritical ? 'bg-red-600 text-white' : 'bg-slate-200 text-slate-800'}">
+                            Lvl ${p.priority} ${isCritical ? '(Kritis)' : ''}
+                        </span>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function randomizeUgd() {
+            const names = ["Andi", "Siti", "Doni", "Rika", "Edi", "Maya"];
+            const illnesses = ["Luka Bakar", "Demam Berdarah", "Keracunan", "Hipertensi Darurat", "Nyeri Dada"];
+            
+            ugdPatients = [];
+            for (let i = 0; i < 4; i++) {
+                ugdPatients.push({
+                    name: names[Math.floor(Math.random() * names.length)] + ` (${i+1})`,
+                    illness: illnesses[Math.floor(Math.random() * illnesses.length)],
+                    priority: Math.floor(1 + Math.random() * 5)
+                });
+            }
+            renderUgdTable();
+            showToast("Antrean Pasien UGD berhasil diacak kembali!", "info");
+        }
+
+        function runBubbleSort() {
+            const n = ugdPatients.length;
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (ugdPatients[j].priority > ugdPatients[j + 1].priority) {
+                        const temp = ugdPatients[j];
+                        ugdPatients[j] = ugdPatients[j + 1];
+                        ugdPatients[j + 1] = temp;
+                    }
+                }
+            }
+            renderUgdTable();
+            showToast("Pasien UGD berhasil diurutkan dengan Bubble Sort!", "success");
+        }
+
+        // ==============================================================================
+        // MATERI 7: IMPLEMENTASI FUNGSI RECURSIVE (RECURSIVE CALCULATOR)
+        // ==============================================================================
+        function recursiveDiscount(cost, layers, currentLayer, logs) {
+            const discountRate = 0.10;
+            const discountAmount = cost * discountRate;
+            const newCost = cost - discountAmount;
+
+            logs.push(`Layer ${currentLayer}: Rp ${cost.toLocaleString('id-ID', {minimumFractionDigits: 2})} ➔ Potongan 10% (Rp ${discountAmount.toLocaleString('id-ID', {minimumFractionDigits: 2})}) ➔ Sisa: Rp ${newCost.toLocaleString('id-ID', {minimumFractionDigits: 2})}`);
+
+            if (currentLayer >= layers) {
+                return newCost;
+            }
+            return recursiveDiscount(newCost, layers, currentLayer + 1, logs);
+        }
+
+        function calculateRecursion() {
+            const costInput = document.getElementById('recursive-cost');
+            const layersInput = document.getElementById('recursive-layers');
+            
+            const cost = parseFloat(costInput.value);
+            const layers = parseInt(layersInput.value);
+
+            if (isNaN(cost) || isNaN(layers) || cost <= 0 || layers < 1) {
+                showToast("Harap masukkan data dengan angka positif!", "warning");
+                return;
+            }
+
+            if (layers > 10) {
+                showToast("Batas maksimal rekursif call stack adalah 10!", "warning");
+                return;
+            }
+
+            const logs = [];
+            const finalCost = recursiveDiscount(cost, layers, 1, logs);
+
+            const card = document.getElementById('recursion-result-card');
+            card.classList.remove('hidden');
+
+            document.getElementById('final-cost-val').innerText = `Rp ${finalCost.toLocaleString('id-ID', {maximumFractionDigits: 2})}`;
+
+            const logsContainer = document.getElementById('recursion-logs');
+            logsContainer.innerHTML = '';
+            logs.forEach(log => {
+                const li = document.createElement('li');
+                li.innerText = log;
+                logsContainer.appendChild(li);
+            });
+
+            showToast("Kalkulasi asuransi berjenjang selesai dihitung secara rekursif!", "success");
+        }
+
+        // --- GLOBAL INITIALIZER PADA SAAT DASHBOARD TERBUKA ---
+        window.onload = function() {
+            renderQueue();
+            renderStack();
+            renderDll();
+            renderUgdTable();
+        };
+    </script>
+</body>
+</html>
